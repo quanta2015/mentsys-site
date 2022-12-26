@@ -1,0 +1,1 @@
+import React from 'react'import dayjs from 'dayjs'import { inject } from 'mobx-react'import style from './style.less';const Index = () => {  return (      <div>index</div>  )}export default Index
