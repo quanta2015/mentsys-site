@@ -1,35 +1,30 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Outlet } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
 import {isN} from '@/util/fn'
 
-import './index.less'
-
+import s from './index.module.less';
+import logo from '@/img/icon_logo.png'
 
 
 class Layout extends React.Component {
 	
 
 
-
 	render() {
 
     return (
-      <div className="g-nav">
-        <div className="m-nav">
-          
-          <div className="m-menu_wrap">
-            
-          </div>
-
+      <>
+        <div className={s.nav}>
+          <img src={logo} />
+          <span>信息学院综合导师课外育人管理系统</span>
         </div>
-
-        <div className="g-main">
-          {this.props.children}
-        </div>
-
-      </div>
+        
+        
+        <Outlet />
+        
+      </>
     )
   }
 }

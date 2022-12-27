@@ -1,19 +1,37 @@
 import { observable, action } from 'mobx'
+import BaseActions from '@/component/BaseActions'
 import { message } from 'antd'
 import { isN } from '@/util/fn.js'
 import req from '@/util/request.js'
+import {saveToken} from '@/util/token'
 
 
-const SEASON_KEY = 'MENT_SYSTEM'
+class Store extends BaseActions {
+  @observable user = null
 
-
-class Store {
-  @observable
-  user = null
 
   @action
   async post(url, params) {
-    return await req(url,params)
+    return await this.post(url,params)
+  }
+
+  @action
+  async get(url, params) {
+    return await this.get(url,params)
+  }
+
+  @action
+  async login(url, params) {
+    const r = await this.post(url, params)
+    if (r.code === 200) {
+      message.info('登录成功！')
+      saveToken(r.token)
+      return true
+    }else{
+      message.error(r.msg)
+      return false
+    }
+
   }
 
 

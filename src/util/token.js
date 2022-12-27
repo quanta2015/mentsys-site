@@ -1,11 +1,15 @@
 import decode from 'jwt-decode'
 
 
-const TOKEN_KEY = 'ANSSYS_TOKEN'
-const USER_KEY  = 'ANSSYS_USER'
+const TOKEN_KEY = 'MENT_SYS_TOKEN'
+const USER_KEY  = 'MENT_SYS_USER'
 
-export const getToken = () => {
+export const loadToken = () => {
   return window.localStorage.getItem(TOKEN_KEY)
+}
+
+export const saveToken = (token) => {
+  return window.localStorage.setItem(TOKEN_KEY,token)
 }
 
 
@@ -22,4 +26,4 @@ export const saveUser = (data) => {
 }
 
 
-export default { loadUser, saveUser, removeUser, getToken }
+export default { loadUser, saveUser, removeUser, loadToken,saveToken }

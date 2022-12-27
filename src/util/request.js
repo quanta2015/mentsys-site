@@ -4,7 +4,7 @@ import jwt from './token'
 
 
 export default(url, options = {}, allRes = false) => {
-  let token = jwt.getToken()
+  let token = jwt.loadToken()
 
   token
     ? axios.defaults.headers.common.authorization = `Bearer ${token}`
