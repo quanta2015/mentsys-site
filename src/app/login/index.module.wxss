@@ -1,0 +1,81 @@
+@media screen and (min-width: 1000px) {
+  .login {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    width: 100%;
+    height: 100vh;
+    padding-top: 200px;
+    align-items: center;
+  }
+  .login_frm {
+    padding: 20px 30px;
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .login_frm > label {
+    flex: 1;
+    font-size: 24px;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .g-login {
+    display: flex;
+    flex-direction: column;
+    color: #eee;
+    font-size: 12px;
+    background: #fff;
+    min-height: 100vh;
+  }
+  .g-login .m-login {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .g-login .m-login .m-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 40px;
+  }
+  .g-login .m-login .m-logo img {
+    display: none;
+  }
+  .g-login .m-login .m-logo .m-title {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
+  .g-login .m-login .m-logo .m-title label {
+    font-size: 45px;
+    color: #ff0000;
+  }
+  .g-login .m-login .m-logo .m-title span {
+    font-size: 20px;
+    color: #666;
+  }
+  .g-login .m-login .m-form {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+  }
+  .g-login .m-login .m-form form {
+    width: 100%;
+  }
+  .g-login .m-login .m-form form .m-user-input {
+    imeMode: auto;
+  }
+  .g-login .m-login .m-form form input,
+  .g-login .m-login .m-form form button {
+    height: 45px!important;
+    font-size: 20px;
+  }
+}

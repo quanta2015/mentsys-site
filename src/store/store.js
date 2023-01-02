@@ -9,7 +9,6 @@ import {saveToken} from '@/util/token'
 class Store extends BaseActions {
   @observable user = null
 
-
   @action
   async post(url, params) {
     return await this.post(url,params)

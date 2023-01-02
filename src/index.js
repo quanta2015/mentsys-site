@@ -12,12 +12,13 @@ import injects from '@/store'
 import '@/less/var.less'
 import '@/less/com.less'
 
-
+//强制改动 mobx 中变量使用 mobx 中的 @action 方式，避免在其他地方改动
 configure({enforceActions: 'observed'})
 
 let Login  = Loadable({ loader: () => import('./app/login') })
 let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
+let Write = Loadable({ loader: () => import('./app/student/write')})
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -29,6 +30,7 @@ root.render(
           <Route path="/login" element={<Login />}/>
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
+            <Route path="/write" element={<Write />} />
           </Route>
         </Routes>
       </BrowserRouter>

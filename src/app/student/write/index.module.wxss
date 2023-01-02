@@ -1,0 +1,50 @@
+.main {
+  width: var(--sys-wid);
+  margin: 0 auto;
+  background: #fff;
+}
+.main .header {
+  margin: 30px 0 30px 40px;
+  font-size: 30px;
+  width: 130px;
+  padding-bottom: 20px;
+  border-bottom: 5px solid var(--clr-main);
+  font-weight: bolder;
+}
+.main .container {
+  font-size: 16px;
+  background: #fff;
+  display: flex;
+  color: black;
+  align-items: center;
+  justify-content: center;
+}
+.main .container .content .tips {
+  margin-bottom: 50px;
+}
+.main .container .content .line {
+  display: flex;
+  margin: 20px 0;
+}
+.main .container .content .line div:nth-child(1) {
+  width: 90px;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.main .container .content .line input {
+  width: 260px;
+  height: 25px;
+}
+.main .container .content .line .bigInput {
+  width: 360px;
+  height: 50px;
+  resize: none;
+}
+.main .footer {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
