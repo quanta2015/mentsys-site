@@ -1,27 +1,12 @@
 import React from 'react'
 import { Link,Outlet,useNavigate } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-
+import { MENU_LIST } from '@/constant/urls'
 import {isN} from '@/util/fn'
 
 import s from './index.module.less';
 import logo from '@/img/logo.svg'
 
-
-const menuList = [
-  {t:0, k: '更新导师信息', v: '/editT'},
-  {t:0, k: '指导学生信息', v: '/mentS'},
-  {t:0, k: '更换指导学生', v: '/changeS'},
-  {t:0, k: '预约交流指导', v: '/orderMent'},
-  {t:1, k: '更新学业信息', v: '/editS'},
-  {t:1, k: '选择学习方向', v: '/selectArea'},
-  {t:1, k: '更换学习方向', v: '/changeArea'},
-  {t:1, k: '评价导师',    v: '/evalT'},
-  {t:2, k: '查看导师信息', v: '/queryT'},
-  {t:2, k: '查看学生信息', v: '/mentS'},
-  {t:2, k: '审核指导请求', v: '/audit'},
-  {t:2, k: '设置系统参数', v: '/config'},
-]
 
 
 const Layout = ({store}) => {
@@ -53,7 +38,7 @@ const Layout = ({store}) => {
           </div>
 
           <div className={s.menu}>
-            {menuList.filter(e=> e.t===store.user?.role).map((item,i)=>
+            {MENU_LIST.filter(e=> e.t===store.user?.role).map((item,i)=>
               <span onClick={()=>selMenu(item)}>{item.k}</span>
             )}
             <span onClick={doLogout}>退出登录</span>
