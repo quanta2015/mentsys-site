@@ -5,28 +5,35 @@ import { inject, observer } from 'mobx-react'
 import {isN} from '@/util/fn'
 
 import s from './index.module.less';
-import logo from '@/img/icon_logo.png'
+import logo from '@/img/logo.svg'
 
 
-class Layout extends React.Component {
-	
+const Layout = ({store}) => {
 
 
-	render() {
-
-    return (
-      <>
-        <div className={s.nav}>
+	 
+  return (
+    <>
+      <div className={s.nav}>
+        <div className={s.logo}>
           <img src={logo} />
           <span>信息学院综合导师课外育人管理系统</span>
         </div>
-        
-        
-        <Outlet />
-        
-      </>
-    )
-  }
+
+        <div className="info">
+          {store.user?.name}
+        </div>
+      </div>
+
+
+
+      
+      
+      <Outlet />
+      
+    </>
+  )
+ 
 }
 
-export default Layout
+export default inject('store')(observer(Layout))
