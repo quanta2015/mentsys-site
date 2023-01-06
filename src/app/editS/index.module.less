@@ -7,26 +7,23 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-
-
-
-
 }
-
 
 .frm {
   display: flex;
   padding: 20px 25px;
-  
 }
 
 .frml {
   flex: 1;
+  display: flex;
+  justify-content: center;
 
   img {
+    margin-top: 20px;
     width: 150px;
     height: 200px;
-    background: #333;
+    background: #666;
   }
 }
 
@@ -40,15 +37,12 @@
   border-bottom: 1px solid var(--clr-main);
   margin-bottom: 10px;
   padding-bottom: 5px;
-
-  // margin-top: ;
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
   padding: 8px 0;
-
 
   label {
     width: 100px;
@@ -77,9 +71,10 @@
     font-size: 16px;
   }
 
-  p {
+  section {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
 
     i {
       width: 100px;
