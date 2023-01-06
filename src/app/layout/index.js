@@ -13,7 +13,7 @@ const Layout = ({store}) => {
   const navigate = useNavigate();
 
   const selMenu =(e)=>{
-    console.log(e)
+    navigate(e.v)
   }
 
   const doLogout =()=>{
@@ -39,7 +39,7 @@ const Layout = ({store}) => {
 
           <div className={s.menu}>
             {MENU_LIST.filter(e=> e.t===store.user?.role).map((item,i)=>
-              <span onClick={()=>selMenu(item)}>{item.k}</span>
+              <span key={i} onClick={()=>selMenu(item)}>{item.k}</span>
             )}
             <span onClick={doLogout}>退出登录</span>
           </div>
