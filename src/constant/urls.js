@@ -1,14 +1,14 @@
 import { API_SERVER } from './apis'
 
 
-export const API_LOGIN = API_SERVER + '/login'
-export const API_TEST = API_SERVER + '/name'
+export const API_LOGIN     = API_SERVER + '/login'
+export const API_LOAD_PROJ = API_SERVER + '/loadProj'
 
 
 
 export const MENU_LIST = [
   {t:0, k: '更新导师信息', v: '/editT'},
-  {t:0, k: '指导学生信息', v: '/mentS'},
+  {t:0, k: '浏览指导学生', v: '/mentS'},
   {t:0, k: '更换指导学生', v: '/changeS'},
   {t:0, k: '预约交流指导', v: '/orderMent'},
 

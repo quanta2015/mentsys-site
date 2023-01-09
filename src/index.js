@@ -19,7 +19,7 @@ let Login  = Loadable({ loader: () => import('./app/login') })
 let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
 let EditS  = Loadable({ loader: () => import('./app/editS')})
-
+let EditT  = Loadable({ loader: () => import('./app/editT')})
 
 
 
@@ -33,6 +33,7 @@ root.render(
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/editS" element={<EditS />} />
+            <Route path="/editT" element={<EditT />} />
           </Route>
         </Routes>
       </BrowserRouter>
