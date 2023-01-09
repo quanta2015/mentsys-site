@@ -10,6 +10,7 @@ class Store extends BaseActions {
   @observable user = null
 
 
+
   @action
   async post(url, params) {
     return await this.post(url,params)
@@ -25,7 +26,10 @@ class Store extends BaseActions {
     const r = await this.post(url, params)
     if (r.code === 200) {
       message.info('登录成功！')
-      saveToken(r.token)
+      window.token = r.token
+      // saveToken(r.token)
+      this.user = r.data
+      console.log(this.user)
       return true
     }else{
       message.error(r.msg)

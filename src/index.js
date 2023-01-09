@@ -18,6 +18,9 @@ configure({enforceActions: 'observed'})
 let Login  = Loadable({ loader: () => import('./app/login') })
 let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
+let EditS  = Loadable({ loader: () => import('./app/editS')})
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -29,6 +32,7 @@ root.render(
           <Route path="/login" element={<Login />}/>
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
+            <Route path="/editS" element={<EditS />} />
           </Route>
         </Routes>
       </BrowserRouter>
