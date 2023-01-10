@@ -18,6 +18,9 @@ const Layout = ({store}) => {
 
   const doLogout =()=>{
     window.token = null
+    store.projr = []
+    store.projh = []
+    store.docs  = []
     navigate('/login')
   }
 	 

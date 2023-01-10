@@ -4,11 +4,14 @@ import { message } from 'antd'
 import { isN } from '@/util/fn.js'
 import req from '@/util/request.js'
 import {saveToken} from '@/util/token'
+import * as urls from '@/constant/urls'
 
 
 class Store extends BaseActions {
   @observable user = null
-
+  @observable projr = []
+  @observable projh = []
+  @observable docs = []
 
 
   @action
@@ -36,6 +39,16 @@ class Store extends BaseActions {
       return false
     }
 
+  }
+
+  @action
+  async loadProj() {
+    const r = await this.post(urls.API_LOAD_PROJ)
+    console.log(r)
+    // this.projr = r.projr
+    // this.projh = r.projh
+    // this.docs  = r.docs
+    return r
   }
 
 

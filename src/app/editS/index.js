@@ -37,27 +37,9 @@ const EditS = ({store}) => {
     } catch (errorInfo) {
       console.log('Failed:', errorInfo);
     }
-  };
+  }
+  
 
-  const doClick =async()=>{
-    try {
-      $("#btn-file").click();
-
-    } catch (errorInfo) {
-      console.log('Failed:', errorInfo);
-    }
-  };
-
-  //选择文件完毕的回调
-  const inputFile=async(obj)=> {
-  // console.log(obj.target)
-  const file = obj.target.files[0];
-  var reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-      $("#avatar").attr("src", this.result);
-    }
-  };
 
   return (
   

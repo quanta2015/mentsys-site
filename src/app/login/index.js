@@ -5,11 +5,12 @@ import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import * as urls from '@/constant/urls'
 import { useNavigate } from 'react-router-dom'
 
-
 import style from './index.module.less'
+
 import logo from '@/img/logo.svg'
 import edu from '@/img/logo.png'
 import mentsys from '@/img/mentsys.png'
+
 
 
 
@@ -31,7 +32,6 @@ const Login = ({store}) => {
   }
 
   return (
-  
     <div className={style.login}>
       <div className={style.wrap}>
         
@@ -66,7 +66,6 @@ const Login = ({store}) => {
       </div>
     </div>
   )
-
 
 }
 
