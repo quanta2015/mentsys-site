@@ -38,7 +38,6 @@ class Store extends BaseActions {
       message.error(r.msg)
       return false
     }
-
   }
 
   @action

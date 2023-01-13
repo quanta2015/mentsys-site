@@ -7,9 +7,8 @@ import { inject,observer } from 'mobx-react'
 import { Speciality_OPT,Plan_OPT ,API_LOGIN,SKILL_OPT,AREA_OPT,Award_OPT } from '@/constant/urls'
 import { Form, Input, Button, message,Select } from 'antd'
 import axios from 'axios'
-import $ from 'jquery'
 import s from './index.module.less';
-
+import * as urls from '@/constant/urls'
 import person from '@/img/person.svg'
 
 
@@ -19,7 +18,7 @@ const opt = [{lable:'计算机', value:'计算机'}]
 const EditS = ({store}) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
+  const fileAvatarRef = useRef();
   useEffect(() => {
     if (!window.token) {
       navigate('/login')
@@ -38,7 +37,78 @@ const EditS = ({store}) => {
       console.log('Failed:', errorInfo);
     }
   }
+
+  function doClick(){
+    const trig=document.getElementById('btn-file');
+    console.log(form)
+    trig.click();
+  }
+
+  async function doll(){
+    const params = await form.validateFields();
+    const r1 =  store.get(urls.API_UPLOAD,params)
+  console.log(r1)
+  }
+
+  function inputFile(obj){
+    console.log(obj.target.files);
+  const file = obj.target.files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    // convert image file to base64 string
+    document.getElementById('avatar').src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+
+  let formdata = new FormData()
+  formdata.append("file", file)
+  const r =  store.post(urls.API_UPLOAD, formdata)
+  }
+
   
+// let axiosPostRequestCancel = null
+// function uploadFiles(data, progressCallBack, callBack) {
+//   console.log(data)
+//   let formData = new FormData();
+//   formData.append("file", data);
+//   let config = {
+//     //添加请求头
+//     headers: { "Content-Type": "multipart/form-data" },
+//     timeout: 600000,
+//     //添加上传进度监听事件
+//     onUploadProgress: e => {
+//       let completeProgress = (e.loaded / e.total * 100) | 0;
+//       progressCallBack && progressCallBack(completeProgress)
+//     },
+//     cancelToken: new axios.CancelToken(function executor(c) {
+//       axiosPostRequestCancel = c // 用于取消上传
+//     })
+//   };
+ 
+//   axios.post("localhost:3000/public", formData, config)
+//   .then(
+//     function (response)
+//     {
+//       console.log(response)
+//       callBack && callBack(true, response)
+//     })
+//     .catch(function (error) {
+//       callBack && callBack(false)
+//     });
+// }
+ 
+// /**
+//  * [cancelAxiosRequest 取消axios post请求]
+//  */
+// function cancelAxiosRequest(){
+//   axiosPostRequestCancel && axiosPostRequestCancel('cancel')
+//   axiosPostRequestCancel = null
+// }
+
 
 
   return (
@@ -47,9 +117,10 @@ const EditS = ({store}) => {
       <span className="g-tl">学生个人信息</span>
 
       <Form form={form} className={s.frm}>
+
         <div className={s.frml}>
           <img src={person} onClick={doClick} id="avatar" />
-          <input type="file" className={s.imgInput} id="btn-file" onChange={inputFile.bind(this)}  onClick={inputFile.bind(this)} accept="image/*"></input>
+          <input type="file" ref={fileAvatarRef} className={s.imgInput} id="btn-file" onChange={inputFile.bind(this)}  onClick={inputFile.bind(this)} accept="image/*"></input>
         </div>
         <div className={s.frmr}>
           <div className={s.sect}>基本信息</div>
