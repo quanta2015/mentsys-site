@@ -10,20 +10,32 @@ import axios from 'axios'
 import s from './index.module.less';
 import * as urls from '@/constant/urls'
 import person from '@/img/person.svg'
+import store from '../../store/store';
 
 
 const opt = [{lable:'计算机', value:'计算机'}]
-
-
+var param1={
+  "skill": store.user.skill,
+  "cert": store.user.cert,
+  "award": store.user.award,
+  "schedule": store.user.schedule,
+  "img": store.user.img
+}
 const EditS = ({store}) => {
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate();//路由跳转
   const [form] = Form.useForm();
   const fileAvatarRef = useRef();
   useEffect(() => {
     if (!window.token) {
       navigate('/login')
+    }else{
+      console.log(store)
+      document.getElementById('avatar').src = "https://mqcai.top/"+store.user.img;
     }
   }, []);
+
+  
 
   const doLogin =async()=>{
     try {
@@ -40,74 +52,53 @@ const EditS = ({store}) => {
 
   function doClick(){
     const trig=document.getElementById('btn-file');
-    console.log(form)
     trig.click();
   }
 
-  async function doll(){
-    const params = await form.validateFields();
-    const r1 =  store.get(urls.API_UPLOAD,params)
-  console.log(r1)
+  async function inputFile(obj){
+        // console.log(obj.target.files);
+        const file = obj.target.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+          // convert image file to base64 string
+          document.getElementById('avatar').src = reader.result;
+        }, false);
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+
+        let formdata = new FormData()
+        formdata.append("file", file)
+        const r = await  store.post(urls.API_UPLOAD, formdata)
+        param1.img=r.data.path
+        const r1=await store.post(urls.API_save_Stuent, param1)
+        console.log(r1)
   }
 
-  function inputFile(obj){
-    console.log(obj.target.files);
-  const file = obj.target.files[0];
-  const reader = new FileReader();
-
-  reader.addEventListener("load", () => {
-    // convert image file to base64 string
-    document.getElementById('avatar').src = reader.result;
-  }, false);
-
-  if (file) {
-    reader.readAsDataURL(file);
+  async function getSelect(){
+    console.log("antd 的select：",param1);
+    const r1=await store.post(urls.API_save_Stuent, param1)
+    console.log(r1)
   }
 
-  let formdata = new FormData()
-  formdata.append("file", file)
-  const r =  store.post(urls.API_UPLOAD, formdata)
+  function skillChange(obj){
+    param1.skill=obj
   }
 
-  
-// let axiosPostRequestCancel = null
-// function uploadFiles(data, progressCallBack, callBack) {
-//   console.log(data)
-//   let formData = new FormData();
-//   formData.append("file", data);
-//   let config = {
-//     //添加请求头
-//     headers: { "Content-Type": "multipart/form-data" },
-//     timeout: 600000,
-//     //添加上传进度监听事件
-//     onUploadProgress: e => {
-//       let completeProgress = (e.loaded / e.total * 100) | 0;
-//       progressCallBack && progressCallBack(completeProgress)
-//     },
-//     cancelToken: new axios.CancelToken(function executor(c) {
-//       axiosPostRequestCancel = c // 用于取消上传
-//     })
-//   };
- 
-//   axios.post("localhost:3000/public", formData, config)
-//   .then(
-//     function (response)
-//     {
-//       console.log(response)
-//       callBack && callBack(true, response)
-//     })
-//     .catch(function (error) {
-//       callBack && callBack(false)
-//     });
-// }
- 
-// /**
-//  * [cancelAxiosRequest 取消axios post请求]
-//  */
-// function cancelAxiosRequest(){
-//   axiosPostRequestCancel && axiosPostRequestCancel('cancel')
-//   axiosPostRequestCancel = null
-// }
+  function certChange(obj){
+    param1.cert=obj
+  }
+
+  function awardChange(obj){
+    param1.award=obj
+  }
+
+  function scheduleChange(obj){
+    // param1.schedule=[...obj,param1.schedule]
+  }
+
 
 
 
@@ -161,6 +152,7 @@ const EditS = ({store}) => {
             <Select
               mode="multiple"
               allowClear
+              onChange={skillChange.bind(this)}
               style={{ width: '100%' }}
               defaultValue={['计算机']}
               placeholder="Please select"
@@ -172,8 +164,9 @@ const EditS = ({store}) => {
             <Select
               mode="multiple"
               allowClear
+              onChange={certChange.bind(this)}
               style={{ width: '100%' }}
-              defaultValue={['英语四级证书']}
+              defaultValue={['英语四级']}
               placeholder="Please select"
               options={SKILL_OPT}
             />
@@ -183,6 +176,7 @@ const EditS = ({store}) => {
             <Select
               mode="multiple"
               allowClear
+              onChange={awardChange.bind(this)}
               style={{ width: '100%' }}
               defaultValue={[]}
               placeholder="Please select"
@@ -194,6 +188,7 @@ const EditS = ({store}) => {
             <section>
               <i>第一学年</i>
               <Select
+                onChange={scheduleChange.bind(this)}
                 mode="multiple"
                 allowClear
                 style={{ width: '100%' }}
@@ -205,6 +200,7 @@ const EditS = ({store}) => {
             <section>
               <i>第二学年</i>
               <Select
+                onChange={scheduleChange.bind(this)}
                 mode="multiple"
                 allowClear
                 style={{ width: '100%' }}
@@ -217,6 +213,7 @@ const EditS = ({store}) => {
               <i>第三学年</i>
               <Select
                 mode="multiple"
+                onChange={scheduleChange.bind(this)}
                 allowClear
                 style={{ width: '100%' }}
                 defaultValue={['开展社会实习', '参加竞赛']}
@@ -228,6 +225,7 @@ const EditS = ({store}) => {
               <i>第四学年</i>
               <Select
                 mode="multiple"
+                onChange={scheduleChange.bind(this)}
                 allowClear
                 style={{ width: '100%' }}
                 defaultValue={['找工作', '考研究生']}
@@ -239,12 +237,16 @@ const EditS = ({store}) => {
           <div className={s.attr}>
             <label>研究方向</label>
             <Select
+              
               allowClear
               style={{ width: '100%' }}
               defaultValue={AREA_OPT[0].value}
               placeholder="Please select"
               options={AREA_OPT}
             />
+          </div>
+          <div className={s.attr}>
+            <button className={s.btnSave} onClick={getSelect.bind(this)}>提交</button>
           </div>
         </div>
       </Form>
