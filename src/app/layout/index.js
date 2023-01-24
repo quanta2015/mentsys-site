@@ -46,19 +46,10 @@ const Layout = ({store}) => {
             )}
             <span onClick={doLogout}>退出登录</span>
           </div>
-
-
         </div>
-
-        
       </div>
-
-
-
-      
       
       <Outlet />
-      
     </>
   )
  
