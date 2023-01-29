@@ -3,17 +3,17 @@ import dayjs from 'dayjs'
 import jwt from '@/util/token'
 import { useNavigate } from 'react-router-dom'
 import {isN} from '@/util/fn'
-import { inject,observer } from 'mobx-react'
-import { Speciality_OPT,Plan_OPT ,API_LOGIN,SKILL_OPT,AREA_OPT,Award_OPT } from '@/constant/urls'
+import { toJS } from 'mobx'
+import { inject,observer,MobXProviderContext } from 'mobx-react'
+import { API_SAVE_STUD,SKILL_OPT,CERT_OPT,AWARD_OPT,AREA_OPT,SCHE_OPT } from '@/constant/urls'
 import { Form, Input, Button, message,Select } from 'antd'
-import axios from 'axios'
+import fileToBlob from '@/util/fileToBlob'
+import UploadImg from '@/component/UploadImg'
+
 import s from './index.module.less';
 import * as urls from '@/constant/urls'
 import person from '@/img/person.svg'
 import store from '../../store/store';
-
-
-const opt = [{lable:'计算机', value:'计算机'}]
 var param1={
   "skill": store.user.skill,
   "cert": store.user.cert,
@@ -21,9 +21,10 @@ var param1={
   "schedule": store.user.schedule,
   "img": store.user.img
 }
-const EditS = ({store}) => {
-  
-  const navigate = useNavigate();//路由跳转
+
+const EditS = () => {
+  const { store } = React.useContext(MobXProviderContext);
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const fileAvatarRef = useRef();
   useEffect(() => {
@@ -35,16 +36,31 @@ const EditS = ({store}) => {
     }
   }, []);
 
-  
+  const doChgVal=(v,opt)=>{
+    store.setUserVal(v,opt)
+  }
 
-  const doLogin =async()=>{
+  const doChgValSchedule=(v,opt)=>{
+    store.setUserSchedule(v,opt)
+  }
+
+  const saveStudent=async()=>{
     try {
-      const params = await form.validateFields();
-      const r = await store.login(API_LOGIN, params)
-      if (r) {
-        navigate('/')
-      }
+      const params = await form.validateFields()
+      params.skill = params.skill.join('|')
+      params.cert  = params.cert.join('|')
+      params.award = params.award.join('|')
+      let s0 = params.sche0.join('&')
+      let s1 = params.sche1.join('&')
+      let s2 = params.sche2.join('&')
+      let s3 = params.sche3.join('&')
+      params.schedule = [s0,s1,s2,s3].join('|')
+      params.img = store.user.img
 
+      let r = await store.post(API_SAVE_STUD, params)
+      if (r.code === 200) {
+        message.info('保存信息成功！')
+      }
     } catch (errorInfo) {
       console.log('Failed:', errorInfo);
     }
@@ -77,31 +93,6 @@ const EditS = ({store}) => {
         console.log(r1)
   }
 
-  async function getSelect(){
-    console.log("antd 的select：",param1);
-    const r1=await store.post(urls.API_save_Stuent, param1)
-    console.log(r1)
-  }
-
-  function skillChange(obj){
-    param1.skill=obj
-  }
-
-  function certChange(obj){
-    param1.cert=obj
-  }
-
-  function awardChange(obj){
-    param1.award=obj
-  }
-
-  function scheduleChange(obj){
-    // param1.schedule=[...obj,param1.schedule]
-  }
-
-
-
-
   return (
   
     <div className={s.std}>
@@ -110,8 +101,7 @@ const EditS = ({store}) => {
       <Form form={form} className={s.frm}>
 
         <div className={s.frml}>
-          <img src={person} onClick={doClick} id="avatar" />
-          <input type="file" ref={fileAvatarRef} className={s.imgInput} id="btn-file" onChange={inputFile.bind(this)}  onClick={inputFile.bind(this)} accept="image/*"></input>
+          <UploadImg width={150} height={200} />
         </div>
         <div className={s.frmr}>
           <div className={s.sect}>基本信息</div>
@@ -149,105 +139,123 @@ const EditS = ({store}) => {
           <div className={s.sect}>其他信息</div>
           <div className={s.attr}>
             <label>个人特长</label>
-            <Select
-              mode="multiple"
-              allowClear
-              onChange={skillChange.bind(this)}
-              style={{ width: '100%' }}
-              defaultValue={['计算机']}
-              placeholder="Please select"
-              options={Speciality_OPT}
-            />
+            <Form.Item name="skill" initialValue={store.user?.skill} rules={[{ required: true, message: '请选择个人特长'}]}>
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                value={store.user?.skill}
+                placeholder="请选择个人特长"
+                options={SKILL_OPT}
+                onChange={(v)=>doChgVal(v,'skill')}
+              />
+            </Form.Item>
           </div>
           <div className={s.attr}>
             <label>获得证书</label>
-            <Select
-              mode="multiple"
-              allowClear
-              onChange={certChange.bind(this)}
-              style={{ width: '100%' }}
-              defaultValue={['英语四级']}
-              placeholder="Please select"
-              options={SKILL_OPT}
-            />
+            <Form.Item name="cert" initialValue={store.user?.cert} rules={[{ required: true, message: '请选择获得证书'}]}>
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                value={store.user?.cert}
+                placeholder="请选择获得证书"
+                options={CERT_OPT}
+                onChange={(v)=>doChgVal(v,'cert')}
+              />
+            </Form.Item>
           </div>
           <div className={s.attr}>
             <label>获奖情况</label>
-            <Select
-              mode="multiple"
-              allowClear
-              onChange={awardChange.bind(this)}
-              style={{ width: '100%' }}
-              defaultValue={[]}
-              placeholder="Please select"
-              options={Award_OPT}
-            />
+            <Form.Item name="award" initialValue={store.user?.award} rules={[{ required: true, message: '请选择获得证书'}]}>
+              <Select
+                mode="multiple"
+                allowClear
+                style={{ width: '100%' }}
+                value={store.user?.award}
+                placeholder="请选择获得证书"
+                options={AWARD_OPT}
+                onChange={(v)=>doChgVal(v,'award')}
+              />
+            </Form.Item>
           </div>
           <div className={s.attr}>
             <label>学业规划</label>
             <section>
               <i>第一学年</i>
-              <Select
-                onChange={scheduleChange.bind(this)}
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                defaultValue={['学习专业课程']}
-                placeholder="Please select"
-                options={Plan_OPT}
-              />
+              <Form.Item name="sche0" initialValue={store.user?.schedule[0]} rules={[{ required: true, message: '请选择学业规划'}]}>
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  value={store.user?.schedule[0]}
+                  placeholder="请选择学业规划"
+                  options={SCHE_OPT}
+                  onChange={(v)=>doChgValSchedule(v,0)}
+                />
+              </Form.Item>
             </section>
             <section>
               <i>第二学年</i>
-              <Select
-                onChange={scheduleChange.bind(this)}
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                defaultValue={['研究前端技术', '跟老师做项目']}
-                placeholder="Please select"
-                options={Plan_OPT}
-              />
+              <Form.Item name="sche1" initialValue={store.user?.schedule[1]} rules={[{ required: true, message: '请选择学业规划'}]}>
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  value={store.user?.schedule[1]}
+                  placeholder="请选择学业规划"
+                  options={SCHE_OPT}
+                  onChange={(v)=>doChgValSchedule(v,1)}
+                />
+              </Form.Item>
             </section>
             <section>
               <i>第三学年</i>
-              <Select
-                mode="multiple"
-                onChange={scheduleChange.bind(this)}
-                allowClear
-                style={{ width: '100%' }}
-                defaultValue={['开展社会实习', '参加竞赛']}
-                placeholder="Please select"
-                options={Plan_OPT}
-              />
+              <Form.Item name="sche2" initialValue={store.user?.schedule[2]} rules={[{ required: true, message: '请选择学业规划'}]}>
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  value={store.user?.schedule[2]}
+                  placeholder="请选择学业规划"
+                  options={SCHE_OPT}
+                  onChange={(v)=>doChgValSchedule(v,2)}
+                />
+              </Form.Item>
             </section>
             <section>
               <i>第四学年</i>
-              <Select
-                mode="multiple"
-                onChange={scheduleChange.bind(this)}
-                allowClear
-                style={{ width: '100%' }}
-                defaultValue={['找工作', '考研究生']}
-                placeholder="Please select"
-                options={Plan_OPT}
-              />
+              <Form.Item name="sche3" initialValue={store.user?.schedule[3]} rules={[{ required: true, message: '请选择学业规划'}]}>
+                <Select
+                  mode="multiple"
+                  allowClear
+                  style={{ width: '100%' }}
+                  value={store.user?.schedule[3]}
+                  placeholder="请选择学业规划"
+                  options={SCHE_OPT}
+                  onChange={(v)=>doChgValSchedule(v,3)}
+                />
+              </Form.Item>
             </section>
           </div>
           <div className={s.attr}>
             <label>研究方向</label>
-            <Select
-              
-              allowClear
-              style={{ width: '100%' }}
-              defaultValue={AREA_OPT[0].value}
-              placeholder="Please select"
-              options={AREA_OPT}
-            />
+            <Form.Item name="field" initialValue={store.user?.field} rules={[{ required: true, message: '请选择学业规划'}]}>
+              <Select
+                allowClear
+                style={{ width: '100%' }}
+                value={store.user?.field}
+                placeholder="Please select"
+                options={AREA_OPT}
+                onChange={(v)=>doChgVal(v,'field')}
+              />
+            </Form.Item>
           </div>
-          <div className={s.attr}>
-            <button className={s.btnSave} onClick={getSelect.bind(this)}>提交</button>
+
+          <div className={s.fun}>
+            <Button type="primary" size="large" onClick={saveStudent}>保 存</Button>
           </div>
+
         </div>
       </Form>
     </div>
@@ -256,4 +264,4 @@ const EditS = ({store}) => {
 
 }
 
-export default  inject('store')(observer(EditS))
+export default observer(EditS)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { inject,observer } from 'mobx-react'
+import { inject,observer,MobXProviderContext } from 'mobx-react'
 import { Form, Input, Button, message } from 'antd'
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import * as urls from '@/constant/urls'
@@ -14,7 +14,8 @@ import mentsys from '@/img/mentsys.png'
 
 
 
-const Login = ({store}) => {
+const Login = () => {
+  const { store } = React.useContext(MobXProviderContext);
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -69,4 +70,4 @@ const Login = ({store}) => {
 
 }
 
-export default inject('store')(observer(Login))
+export default observer(Login)

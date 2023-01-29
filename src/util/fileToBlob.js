@@ -6,7 +6,7 @@
  * @param quality 压缩质量, 默认0.92
  * @param orientation 方向元信息，移动端IOS需要注意是，使用压缩后会清除掉图像方向信息，导致上传后图片旋转
  */
-export default async function fileToBlobScaled(file, limitWidth, limitHeight, quality = 0.92, orientation = 1) {
+export default async function fileToBlob(file, limitWidth, limitHeight, quality = 0.92, orientation = 1) {
 
 	if (!('createImageBitmap' in window)) {
 		window.createImageBitmap = async function (blob) {
