@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import {isN} from '@/util/fn'
 import { toJS } from 'mobx'
 import { inject,observer,MobXProviderContext } from 'mobx-react'
-import { API_SAVE_STUD,SKILL_OPT,CERT_OPT,AWARD_OPT,AREA_OPT,SCHE_OPT } from '@/constant/urls'
+import { API_SAVE_STUD,SKILL_OPT,CERT_OPT,AWARD_OPT,Area_OPT,SCHE_OPT } from '@/constant/urls'
 import { Form, Input, Button, message,Select } from 'antd'
 import fileToBlob from '@/util/fileToBlob'
 import UploadImg from '@/component/UploadImg'
@@ -31,8 +31,6 @@ const EditS = () => {
     if (!window.token) {
       navigate('/login')
     }else{
-      console.log(store)
-      document.getElementById('avatar').src = "https://mqcai.top/"+store.user.img;
     }
   }, []);
 
@@ -66,35 +64,9 @@ const EditS = () => {
     }
   }
 
-  function doClick(){
-    const trig=document.getElementById('btn-file');
-    trig.click();
-  }
-
-  async function inputFile(obj){
-        // console.log(obj.target.files);
-        const file = obj.target.files[0];
-        const reader = new FileReader();
-
-        reader.addEventListener("load", () => {
-          // convert image file to base64 string
-          document.getElementById('avatar').src = reader.result;
-        }, false);
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-
-        let formdata = new FormData()
-        formdata.append("file", file)
-        const r = await  store.post(urls.API_UPLOAD, formdata)
-        param1.img=r.data.path
-        const r1=await store.post(urls.API_save_Stuent, param1)
-        console.log(r1)
-  }
+  
 
   return (
-  
     <div className={s.std}>
       <span className="g-tl">学生个人信息</span>
 
@@ -246,7 +218,7 @@ const EditS = () => {
                 style={{ width: '100%' }}
                 value={store.user?.field}
                 placeholder="Please select"
-                options={AREA_OPT}
+                options={Area_OPT}
                 onChange={(v)=>doChgVal(v,'field')}
               />
             </Form.Item>
