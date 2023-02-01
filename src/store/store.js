@@ -22,13 +22,18 @@ class Store {
 
   setUserObj(o) {
     this.user = o
-    let schedule = o.schedule.split('|')
-    schedule.map((item,i)=>{ schedule[i]=item.split('&')  })
-    this.user.skill    = isN(o.skill)?[]:o.skill.split('|')
-    this.user.cert     = isN(o.cert)?[]:o.cert.split('|')
-    this.user.award    = isN(o.award)?[]:o.award.split('|')
-    this.user.schedule = isN(o.schedule)?[[],[],[],[]]:schedule
-    // console.log(toJS(this.user))
+
+    if (o.role===1) {
+      let schedule = isN(o.schedule)?[]:o.schedule.split('|')
+      schedule.map((item,i)=>{ schedule[i]=item.split('&')  })
+      this.user.skill    = isN(o.skill)?[]:o.skill.split('|')
+      this.user.cert     = isN(o.cert)?[]:o.cert.split('|')
+      this.user.award    = isN(o.award)?[]:o.award.split('|')
+      this.user.schedule = isN(o.schedule)?[[],[],[],[]]:schedule
+    }else if (o.role===0) {
+      this.user.area     = isN(o.area)?[]:o.area.split('|')
+    }
+    console.log(toJS(this.user))
   }
 
   setUserVal(v,attr) {

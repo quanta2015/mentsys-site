@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import {isN} from '@/util/fn'
 import { toJS } from 'mobx'
 import { inject,observer,MobXProviderContext } from 'mobx-react'
-import { API_SAVE_STUD,SKILL_OPT,CERT_OPT,AWARD_OPT,Area_OPT,SCHE_OPT } from '@/constant/urls'
+import { API_STUD_SAVE,SKILL_OPT,CERT_OPT,AWARD_OPT,AREA_OPT,SCHE_OPT } from '@/constant/urls'
 import { Form, Input, Button, message,Select } from 'antd'
 import fileToBlob from '@/util/fileToBlob'
 import UploadImg from '@/component/UploadImg'
@@ -23,10 +23,10 @@ var param1={
 }
 
 const EditS = () => {
-  const { store } = React.useContext(MobXProviderContext);
-  const navigate = useNavigate();
-  const [form] = Form.useForm();
-  const fileAvatarRef = useRef();
+  const { store } = React.useContext(MobXProviderContext)
+  const navigate = useNavigate()
+  const [form] = Form.useForm()
+
   useEffect(() => {
     if (!window.token) {
       navigate('/login')
@@ -55,7 +55,7 @@ const EditS = () => {
       params.schedule = [s0,s1,s2,s3].join('|')
       params.img = store.user.img
 
-      let r = await store.post(API_SAVE_STUD, params)
+      let r = await store.post(API_STUD_SAVE, params)
       if (r.code === 200) {
         message.info('保存信息成功！')
       }
@@ -218,7 +218,7 @@ const EditS = () => {
                 style={{ width: '100%' }}
                 value={store.user?.field}
                 placeholder="Please select"
-                options={Area_OPT}
+                options={AREA_OPT}
                 onChange={(v)=>doChgVal(v,'field')}
               />
             </Form.Item>

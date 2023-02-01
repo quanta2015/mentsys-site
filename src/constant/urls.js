@@ -2,9 +2,11 @@ import { API_SERVER } from './apis'
 
 
 export const API_LOGIN     = API_SERVER + '/login'
-export const API_UPLOAD     = API_SERVER + '/upload'
 export const API_LOAD_PROJ = API_SERVER + '/loadProj'
-export const API_SAVE_STUD = API_SERVER + '/saveStudent'
+export const API_UPLOAD    = API_SERVER + '/upload'
+export const API_STUD_SAVE = API_SERVER + '/studSave'
+export const API_TECH_SAVE = API_SERVER + '/techSave'
+
 
 
 export const MENU_LIST = [
@@ -36,7 +38,7 @@ const toOpt = (list) =>  list.map((item,i)=> item = {label:item, value: item} )
 export const Award_OPT=toOpt(AWARD_LIST)
 export const SKILL_OPT = toOpt(SKILL_LIST)
 export const CERT_OPT  = toOpt(CERT_LIST)
-export const Area_OPT  = toOpt(AREA_LIST)
+export const AERA_OPT  = toOpt(AREA_LIST)
 export const AWARD_OPT = toOpt(AWARD_LIST)
 export const SCHE_OPT  = toOpt(SCHE_LIST)
 
