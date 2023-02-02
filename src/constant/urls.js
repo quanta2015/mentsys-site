@@ -55,7 +55,7 @@ export const FIELD_OPT = [
       { label: '计算机图形学', value: '计算机图形学' },
     ],
   },{
-    label: 'Engineer',
+    label: '计算机系统结构',
     options: [
       { label: '体系结构', value: '体系结构' },
       { label: '面向对象', value: '面向对象' },
@@ -69,7 +69,7 @@ export const FIELD_OPT = [
       { label: '数据库系统和数据挖掘', value: '数据库系统和数据挖掘' },
     ],
   },{
-    label: 'Engineer',
+    label: '计算机应用',
     options: [
       { label: '多媒体', value: '多媒体' },
       { label: '电子商务', value: '电子商务' },
