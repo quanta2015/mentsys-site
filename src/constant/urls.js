@@ -3,6 +3,7 @@ import { API_SERVER } from './apis'
 
 export const API_LOGIN     = API_SERVER + '/login'
 export const API_MENU_LOAD = API_SERVER + '/menuLoad'
+export const API_TECH_LOAD = API_SERVER + '/techLoad'
 export const API_LOAD_PROJ = API_SERVER + '/loadProj'
 export const API_UPLOAD    = API_SERVER + '/upload'
 export const API_STUD_SAVE = API_SERVER + '/studSave'

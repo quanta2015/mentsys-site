@@ -82,6 +82,12 @@ class Store {
     return r
   }
 
+  async techLoad(params) {
+    const r = await this.post(urls.API_TECH_LOAD,params)
+    console.log(r)
+    return r
+  }
+
 
 
 }
