@@ -18,6 +18,7 @@ class Store {
   projr = []
   projh = []
   docs = []
+  menu = []
 
 
   setUserObj(o) {
@@ -74,6 +75,14 @@ class Store {
     // this.docs  = r.docs
     return r
   }
+
+  async menuLoad() {
+    const r = await this.post(urls.API_MENU_LOAD)
+    console.log(r)
+    this.menu = r.data
+    return r
+  }
+
 
 
 }

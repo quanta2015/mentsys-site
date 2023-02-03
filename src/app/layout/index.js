@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Link,Outlet,useNavigate } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import { inject, observer,MobXProviderContext } from 'mobx-react'
 import { MENU_LIST } from '@/constant/urls'
 import {isN} from '@/util/fn'
 
@@ -9,8 +9,18 @@ import logo from '@/img/logo.svg'
 
 
 
-const Layout = ({store}) => {
-  const navigate = useNavigate();
+const Layout = () => {
+  const navigate = useNavigate()
+  const { store } = React.useContext(MobXProviderContext)
+
+
+  useEffect(() => {
+    if (!window.token) {
+      navigate('/login')
+    }else{
+      store.menuLoad()
+    }
+  }, []);
 
   const selMenu =(e)=>{
     navigate(e.v)
@@ -41,7 +51,7 @@ const Layout = ({store}) => {
           </div>
 
           <div className={s.menu}>
-            {MENU_LIST.filter(e=> e.t===store.user?.role).map((item,i)=>
+            {store.menu.map((item,i)=>
               <span key={i} onClick={()=>selMenu(item)}>{item.k}</span>
             )}
             <span onClick={doLogout}>退出登录</span>

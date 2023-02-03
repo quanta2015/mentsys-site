@@ -2,6 +2,7 @@ import { API_SERVER } from './apis'
 
 
 export const API_LOGIN     = API_SERVER + '/login'
+export const API_MENU_LOAD = API_SERVER + '/menuLoad'
 export const API_LOAD_PROJ = API_SERVER + '/loadProj'
 export const API_UPLOAD    = API_SERVER + '/upload'
 export const API_STUD_SAVE = API_SERVER + '/studSave'
@@ -9,22 +10,6 @@ export const API_TECH_SAVE = API_SERVER + '/techSave'
 
 
 
-export const MENU_LIST = [
-  {t:0, k: '更新导师信息', v: '/editT'},
-  {t:0, k: '浏览指导学生', v: '/mentS'},
-  {t:0, k: '更换指导学生', v: '/changeS'},
-  {t:0, k: '预约交流指导', v: '/orderMent'},
-
-  {t:1, k: '更新学业信息', v: '/editS'},
-  {t:1, k: '选择学习方向', v: '/selectArea'},
-  {t:1, k: '更换学习方向', v: '/changeArea'},
-  {t:1, k: '评价导师',    v: '/evalT'},
-  
-  {t:2, k: '查看导师信息', v: '/queryT'},
-  {t:2, k: '查看学生信息', v: '/mentS'},
-  {t:2, k: '审核指导请求', v: '/audit'},
-  {t:2, k: '设置系统参数', v: '/config'},
-]
 
 const SKILL_LIST = ["轮滑","篮球","排球","足球","羽毛球","乒乓球","网球","计算机","音乐","围棋","象棋","跆拳道","跳舞","绘画","书法","游泳","社交","爬山","PS","PR","XD","3dMax","Unity"]
 const CERT_LIST  = ["教师资格证","计算机二级证书","英语四级","英语六级","机动车驾驶证","普通话等级证书","三好学生证书","优秀毕业生证书","优秀学生干部证书","英语中高级口译","托福TOFEL","雅思IELTS","托业TOEIC","GRE/GMAT","日本语JLPT N1","日本语JLPT N2","韩国语能力考试","EI论文","SCI论文","发明专利证书"]
