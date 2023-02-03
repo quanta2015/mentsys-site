@@ -71,7 +71,7 @@ const QueryT = () => {
     if (!window.token) {
       navigate('/login')
     }else{
-      store.techLoad("前端方向");
+      // store.techLoad("前端方向"); 
     }
   }, []);
   

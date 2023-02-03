@@ -21,7 +21,7 @@ let Layout = Loadable({ loader: () => import('./app/layout')})
 let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
 let QueryT  = Loadable({ loader: () => import('./app/queryT')})
-
+let Config  = Loadable({ loader: () => import('./app/config')})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,6 +35,7 @@ root.render(
             <Route path="/editS" element={<EditS />} />
             <Route path="/editT" element={<EditT />} />
             <Route path="/queryT" element={<QueryT />} />
+            <Route path="/config" element={<Config />} />
           </Route>
         </Routes>
       </BrowserRouter>
