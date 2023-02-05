@@ -8,7 +8,7 @@ export const API_LOAD_PROJ = API_SERVER + '/loadProj'
 export const API_UPLOAD    = API_SERVER + '/upload'
 export const API_STUD_SAVE = API_SERVER + '/studSave'
 export const API_TECH_SAVE = API_SERVER + '/techSave'
-
+export const API_MENU_UPDATE = API_SERVER + '/menuUpdate'
 
 
 
