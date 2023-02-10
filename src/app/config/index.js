@@ -34,23 +34,23 @@ const Config = () => {
     "to":""
   }];
   const onChange1 = (data,datajs,dataString) => {
-    console.log(data);
-    // console.log(datajs[0].toString());
-    params[0].fr=datajs[0]
-    params[0].to=datajs[1]
-    console.log(params)
+    // console.log(data);
+    console.log(datajs[0].toString());
+    params[0].fr=datajs[0].slice(0,4)+datajs[0].slice(5,7)+datajs[0].slice(8,10)+datajs[0].slice(11,13)+datajs[0].slice(14,16)+datajs[0].slice(17)
+    params[0].to=datajs[1].slice(0,4)+datajs[1].slice(5,7)+datajs[1].slice(8,10)+datajs[1].slice(11,13)+datajs[1].slice(14,16)+datajs[1].slice(17)
+    // console.log(params)
   };
   const onChange2 = (data,datajs,dataString) => {
     console.log(data);
     // console.log(datajs[0].toString());
-    params[1].fr=datajs[0]
-    params[1].to=datajs[1]
+    params[1].fr=datajs[0].slice(0,4)+datajs[0].slice(5,7)+datajs[0].slice(8,10)+datajs[0].slice(11,13)+datajs[0].slice(14,16)+datajs[0].slice(17)
+    params[1].to=datajs[1].slice(0,4)+datajs[1].slice(5,7)+datajs[1].slice(8,10)+datajs[1].slice(11,13)+datajs[1].slice(14,16)+datajs[1].slice(17)
   };
   const onChange3 = (data,datajs,dataString) => {
     console.log(data);
     // console.log(datajs[0].toString());
-    params[2].fr=datajs[0]
-    params[2].to=datajs[1]
+    params[2].fr=datajs[0].slice(0,4)+datajs[0].slice(5,7)+datajs[0].slice(8,10)+datajs[0].slice(11,13)+datajs[0].slice(14,16)+datajs[0].slice(17)
+    params[2].to=datajs[1].slice(0,4)+datajs[1].slice(5,7)+datajs[1].slice(8,10)+datajs[1].slice(11,13)+datajs[1].slice(14,16)+datajs[1].slice(17)
   };
 
 
@@ -72,7 +72,28 @@ const Config = () => {
                 "to": params[i-6].to,
             }
             let r = await store.post(API_MENU_UPDATE, param)
-            console.log(r)
+            console.log(params)
+            if (r.code === 200) {
+                message.info('保存信息成功！')
+              }
+        }
+        
+    } catch (errorInfo) {
+      console.log('Failed:', errorInfo);
+    }
+  }
+
+  const saveAdminAll=async()=>{
+    try {
+        
+        for(let i=6;i<=8;i++){
+            const param={
+                "id": i,
+                "fr":'20221201163839',
+                "to": '20990421164243',
+            }
+            let r = await store.post(API_MENU_UPDATE, param)
+            
             if (r.code === 200) {
                 message.info('保存信息成功！')
               }
@@ -106,9 +127,8 @@ const Config = () => {
         </div>
      <div className={s.fun}>
      <Button type="primary" size="large" onClick={saveAdmin}>保 存</Button>
+     <Button type="primary" size="large" onClick={saveAdminAll}>一键开启所有菜单</Button>
      </div>
-       
-     
      
     </div>
   )
