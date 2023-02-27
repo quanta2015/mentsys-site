@@ -1,14 +1,14 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'mobx-react'
 import { configure } from 'mobx'
 import { ConfigProvider } from 'antd'
 import Loadable from '@/component/Loadable'
 import zhCN from 'antd/es/locale/zh_CN'
 
+import { Provider } from 'mobx-react'
 import injects from '@/store'
-
+// 在入口文件index.js中导入状态仓库store和状态更新供应组件Provider
 import '@/less/var.less'
 import '@/less/com.less'
 
@@ -20,11 +20,12 @@ let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
 let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
-
+let SelectArea = Loadable({loader:() => import('./app/selectArea')})
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // 在入口文件index.js中,使用Provider 包裹App根组件, 并设置store
   <Provider {...injects}>
     <ConfigProvider locale={zhCN}>
       <BrowserRouter>
@@ -34,6 +35,7 @@ root.render(
             <Route path="/" element={<Index />} />
             <Route path="/editS" element={<EditS />} />
             <Route path="/editT" element={<EditT />} />
+            <Route path='/selectArea' element={<SelectArea/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
