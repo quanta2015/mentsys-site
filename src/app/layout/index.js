@@ -12,8 +12,7 @@ import logo from '@/img/logo.svg'
 const Layout = () => {
   const navigate = useNavigate()
   const { store } = React.useContext(MobXProviderContext)
-
-
+  console.log(store.menu);
   useEffect(() => {
     if (!window.token) {
       navigate('/login')
