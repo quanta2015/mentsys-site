@@ -15,7 +15,7 @@ import '@/less/com.less'
 
 configure({enforceActions: 'observed'})
 
-let Rpa    = Loadable({ loader: () => import('./app/rpa') })
+
 let Login  = Loadable({ loader: () => import('./app/login') })
 let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
@@ -30,7 +30,6 @@ root.render(
     <ConfigProvider locale={zhCN}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Rpa />}/>
           <Route path="/login" element={<Login />}/>
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
