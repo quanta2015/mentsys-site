@@ -10,6 +10,10 @@ export const API_TECH_SAVE = API_SERVER + '/techSave'
 
 
 
+export const API_RPA_LIST = API_SERVER + '/rpaList'
+
+
+
 
 const SKILL_LIST = ["轮滑","篮球","排球","足球","羽毛球","乒乓球","网球","计算机","音乐","围棋","象棋","跆拳道","跳舞","绘画","书法","游泳","社交","爬山","PS","PR","XD","3dMax","Unity"]
 const CERT_LIST  = ["教师资格证","计算机二级证书","英语四级","英语六级","机动车驾驶证","普通话等级证书","三好学生证书","优秀毕业生证书","优秀学生干部证书","英语中高级口译","托福TOFEL","雅思IELTS","托业TOEIC","GRE/GMAT","日本语JLPT N1","日本语JLPT N2","韩国语能力考试","EI论文","SCI论文","发明专利证书"]
