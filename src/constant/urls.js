@@ -8,6 +8,9 @@ export const API_UPLOAD    = API_SERVER + '/upload'
 export const API_STUD_SAVE = API_SERVER + '/studSave'
 export const API_TECH_SAVE = API_SERVER + '/techSave'
 
+export const API_MENT_LOAD = API_SERVER + '/mentLoad'
+export const API_MENT_DETAIL_LOAD = API_SERVER + '/mentDetailLoad'
+
 
 
 export const API_RPA_LIST = API_SERVER + '/rpaList'

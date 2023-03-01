@@ -21,7 +21,7 @@ let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
 let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
-
+let SelectMent  = Loadable({ loader: () => import('./app/selectMent')})
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,6 +35,7 @@ root.render(
             <Route path="/" element={<Index />} />
             <Route path="/editS" element={<EditS />} />
             <Route path="/editT" element={<EditT />} />
+            <Route path="/selectMent" element={<SelectMent />} />
           </Route>
         </Routes>
       </BrowserRouter>
