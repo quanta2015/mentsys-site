@@ -15,12 +15,17 @@ import '@/less/com.less'
 
 configure({enforceActions: 'observed'})
 
+
 let Login  = Loadable({ loader: () => import('./app/login') })
 let Index  = Loadable({ loader: () => import('./app/index')})
 let Layout = Loadable({ loader: () => import('./app/layout')})
 let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
+// <<<<<<< HEAD
 let SelectArea = Loadable({loader:() => import('./app/selectArea')})
+// =======
+let SelectMent  = Loadable({ loader: () => import('./app/selectMent')})
+// >>>>>>> de3ac9604ba8aa51699e2f6c7263224e61614210
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -35,7 +40,11 @@ root.render(
             <Route path="/" element={<Index />} />
             <Route path="/editS" element={<EditS />} />
             <Route path="/editT" element={<EditT />} />
+{/* <<<<<<< HEAD */}
             <Route path='/selectArea' element={<SelectArea/>}/>
+{/* ======= */}
+            <Route path="/selectMent" element={<SelectMent />} />
+{/* >>>>>>> de3ac9604ba8aa51699e2f6c7263224e61614210 */}
           </Route>
         </Routes>
       </BrowserRouter>

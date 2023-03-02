@@ -19,6 +19,8 @@ class Store {
   projh = []
   docs = []
   menu = []
+  rpa  = []
+  his  = []
 
 
   setUserObj(o) {
@@ -80,6 +82,13 @@ class Store {
     const r = await this.post(urls.API_MENU_LOAD)
     console.log(r)
     this.menu = r.data
+    return r
+  }
+
+  async rpaList() {
+    const r = await this.post(urls.API_RPA_LIST)
+    this.rpa = r.data
+    this.his = r.now
     return r
   }
 
