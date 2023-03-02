@@ -30,6 +30,7 @@ const Layout = () => {
 
   const doLogout = () => {
     window.token = null;
+    window.localStorage.clear();
     store.projr = [];
     store.projh = [];
     store.docs = [];
