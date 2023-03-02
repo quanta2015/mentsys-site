@@ -1,39 +1,41 @@
-import React,{useEffect} from 'react'
-import { Link,Outlet,useNavigate } from 'react-router-dom'
-import { inject, observer,MobXProviderContext } from 'mobx-react'
-import { MENU_LIST } from '@/constant/urls'
-import {isN} from '@/util/fn'
-
-import s from './index.module.less';
-import logo from '@/img/logo.svg'
-
-
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { inject, observer, MobXProviderContext } from "mobx-react";
+import { MENU_LIST } from "@/constant/urls";
+import { isN } from "@/util/fn";
+import { jwt, loadToken, loadUser, loadMenu } from "@/util/token";
+import s from "./index.module.less";
+import logo from "@/img/logo.svg";
 
 const Layout = () => {
-  const navigate = useNavigate()
-  const { store } = React.useContext(MobXProviderContext)
-
+  const navigate = useNavigate();
+  const { store } = React.useContext(MobXProviderContext);
+  const [loadedMenu, setLoadedMenu] = useState([]);
 
   useEffect(() => {
-    if (!window.token) {
-      navigate('/login')
-    }else{
-      store.menuLoad()
+    if (!loadToken()) {
+      console.log(loadToken());
+      navigate("/login");
+    } else {
+      store.menuLoad().then((res) => {
+        console.log("loadMenu", res.data);
+        setLoadedMenu(res.data);
+      });
     }
   }, []);
 
-  const selMenu =(e)=>{
-    navigate(e.v)
-  }
+  const selMenu = (e) => {
+    navigate(e.v);
+  };
 
-  const doLogout =()=>{
-    window.token = null
-    store.projr = []
-    store.projh = []
-    store.docs  = []
-    navigate('/login')
-  }
-	 
+  const doLogout = () => {
+    window.token = null;
+    store.projr = [];
+    store.projh = [];
+    store.docs = [];
+    navigate("/login");
+  };
+
   return (
     <>
       <div className={s.nav}>
@@ -51,18 +53,19 @@ const Layout = () => {
           </div>
 
           <div className={s.menu}>
-            {store.menu.map((item,i)=>
-              <span key={i} onClick={()=>selMenu(item)}>{item.k}</span>
-            )}
+            {loadedMenu?.map((item, i) => (
+              <span key={i} onClick={() => selMenu(item)}>
+                {item.k}
+              </span>
+            ))}
             <span onClick={doLogout}>退出登录</span>
           </div>
         </div>
       </div>
-      
+
       <Outlet />
     </>
-  )
- 
-}
+  );
+};
 
-export default inject('store')(observer(Layout))
+export default inject("store")(observer(Layout));
