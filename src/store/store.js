@@ -85,12 +85,20 @@ class Store {
     return r
   }
 
-  async rpaList() {
-    const r = await this.post(urls.API_RPA_LIST)
-    this.rpa = r.data
-    this.his = r.now
-    return r
+
+  async studList() {
+    let params = {
+      mid: this.user.uid
+    }
+    console.log(params)
+    const r = await this.post(urls.API_STUD_LIST,params)
+    if (r.code === 200) {
+      return r.data
+    }else{
+      message.error('加载数据出错!')
+    }
   }
+
 
 
 

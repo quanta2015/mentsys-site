@@ -1,0 +1,164 @@
+.main {
+  width: var(--sys-wid);
+  margin: 0 auto;
+  flex: 1;
+  background: #fff;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.none {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #ccc;
+}
+
+.wrap {
+  width: 100%;
+  display: flex;
+  flex: 1;
+
+  .list {
+    width: 40%;
+    display: flex;
+    align-self: flex-start;
+  }
+
+  .detail {
+    flex: 1;
+    margin: 10px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+
+    .sect {
+      color: var(--clr-main);
+      font-size: 18px;
+      border-bottom: 1px solid var(--clr-main);
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 8px 0;
+
+      label {
+        width: 100px;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      span {
+        flex: 1;
+        color: #666;
+        font-size: 16px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .attr {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 16px;
+      margin-top: 10px;
+      color: #999;
+
+      span {
+        display: flex;
+
+        i+i {
+          margin-left: 15px;
+        }
+      }
+
+      label {
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: bold;
+        
+        margin-right: 10px;
+      }
+
+      section {
+        display: flex;
+        margin-bottom: 5px;
+        font-size: 14px;
+
+        span {
+          padding: 0 20px;
+        }
+
+        
+      }
+
+    }
+  }
+}
+
+
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  opacity: .3;
+  margin: 5px;
+  cursor: pointer;
+  transition: .3s;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  
+
+  span {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  img {
+    width: 100%;
+    background: #666;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
