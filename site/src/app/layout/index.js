@@ -3,6 +3,7 @@ import { Link,Outlet,useNavigate } from 'react-router-dom'
 import { inject, observer,MobXProviderContext } from 'mobx-react'
 import { MENU_LIST } from '@/constant/urls'
 import {isN} from '@/util/fn'
+import { toJS } from 'mobx'
 
 import s from './index.module.less';
 import logo from '@/img/logo.svg'
@@ -33,6 +34,9 @@ const Layout = () => {
     store.docs  = []
     navigate('/login')
   }
+
+
+  console.log(toJS(store.menu))
 	 
   return (
     <>

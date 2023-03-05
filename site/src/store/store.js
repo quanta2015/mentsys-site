@@ -71,27 +71,37 @@ class Store {
 
   async loadProj() {
     const r = await this.post(urls.API_LOAD_PROJ)
-    console.log(r)
-    // this.projr = r.projr
-    // this.projh = r.projh
-    // this.docs  = r.docs
     return r
   }
 
   async menuLoad() {
     const r = await this.post(urls.API_MENU_LOAD)
-    console.log(r)
+    // console.log(r)
     this.menu = r.data
     return r
   }
 
+  async loadMentList() {
+    return await this.post(urls.API_MENTLIST_LOAD)
+  }
 
-  async studList() {
-    let params = {
-      mid: this.user.uid
+
+  
+
+
+  async mentDetailLoad(params) {
+    const r = await this.post(urls.API_MENT_DETAIL_LOAD, params)
+    if (r.code === 200) {
+      console.log(r,'rrr')
+      return r
+    }else{
+      message.error('加载数据出错!')
     }
-    console.log(params)
-    const r = await this.post(urls.API_STUD_LIST,params)
+  }
+
+
+  async studListForMent(params) {
+    const r = await this.post(urls.API_STUD_LIST_FOR_MENT,params)
     if (r.code === 200) {
       return r.data
     }else{

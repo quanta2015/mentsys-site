@@ -11,12 +11,12 @@ export const API_TECH_SAVE = API_SERVER + '/techSave'
 
 export const API_MENT_LOAD = API_SERVER + '/mentLoad'
 export const API_MENT_SAVE = API_SERVER + '/mentSave'
-export const API_MENT_DETAIL_LOAD = API_SERVER + '/mentDetailLoad'
+export const API_MENT_DETAIL_LOAD   = API_SERVER + '/mentDetailLoad'
 
-export const API_STUD_LIST = API_SERVER + '/studList'
+export const API_STUD_LIST_FOR_MENT = API_SERVER + '/studListForMent'
+export const API_MENTLIST_LOAD = API_SERVER + '/mentList'
 
 
-export const API_RPA_LIST = API_SERVER + '/rpaList'
 
 
 

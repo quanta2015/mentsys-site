@@ -41,12 +41,12 @@ const auth =(req, res, next)=> {
   if (token == null) return res.sendStatus(401)
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, usr) => {
-    console.log(err)
+    // console.log(err)
 
     if (err) return res.sendStatus(403)
     
     req.usr = usr
-    console.log('usr',usr)
+    // console.log('usr',usr)
     next()
   })
 }
@@ -83,6 +83,8 @@ router.post('/login',async (req, res, next) =>{
   let sql = `CALL PROC_LOGIN(?)`
   let r = await callP(sql, params, res)
 
+  // console.log(r)
+
   if (r.length > 0) {
     let ret = clone(r[0])
     let token = jwt.sign(ret, process.env.TOKEN_SECRET)
@@ -91,6 +93,7 @@ router.post('/login',async (req, res, next) =>{
     res.status(200).json({code: 301, data: null, msg: '用户名或密码错误'})
   }
 })
+
 
 
 router.post('/loadProj',auth, async (req, res, next) =>{
@@ -105,6 +108,7 @@ router.post('/loadProj',auth, async (req, res, next) =>{
   let t = await callP(sql3, params, res)
 
   res.status(200).json({code: 200, projh: r, projr:s, docs: t })
+
 })
 
 
@@ -153,8 +157,10 @@ router.post('/studSave', auth, async (req, res, next) =>{
   let sql = `CALL PROC_STUD_SAVE(?)`
   let r = await callP(sql, params, res)
 
-  res.status(200).json({code: 200, data: r })
+  res.status(200).json({code: 200, data: r[0] })
 })
+
+
 
 
 /**
@@ -262,6 +268,67 @@ router.post('/menuLoad', auth, async (req, res, next) =>{
 })
 
 
+const loadMentDetail =async(params,res)=>{
+  let sql1 = `CALL PROC_PROG_H(?)`
+  let sql2 = `CALL PROC_PROG_R(?)`
+  let sql3 = `CALL PROC_DOCS(?)`
+  let r = await callP(sql1, params, res)
+  let s = await callP(sql2, params, res)
+  let t = await callP(sql3, params, res)
+  return {r,s,t}
+}
+
+
+router.post('/mentLoad', auth, async (req, res, next) =>{
+  let params = req.body
+
+
+  // console.log('params',params)
+  let sql = `CALL PROC_MENT_LOAD(?)`
+  let q = await callP(sql, params, res)
+
+  let {r,s,t} = await loadMentDetail({ uid: q[0].uid },res)
+  res.status(200).json({code: 200, data: q, projh:r, projr:s, docs:t })
+})
+
+
+router.post('/mentDetailLoad', auth, async (req, res, next) =>{
+  let params = req.body
+
+  let { r,s,t } = await loadMentDetail(params,res)
+  res.status(200).json({code: 200, projh:r, projr:s, docs:t })
+})
+
+
+router.post('/mentSave', auth, async (req, res, next) =>{
+  let params = {
+    uid: req.usr.uid,
+    mid: req.body.mid,
+  }
+  let sql = `CALL PROC_MENT_SAVE(?)`
+  let r = await callP(sql, params, res)
+
+
+  if (r !== undefined) {
+    res.status(200).json({code: 200, data: r[0] })
+  }else{
+    res.status(200).json({code: 201, data: null, msg: '该导师已经选满，请刷新重试！' })
+  }
+})
+
+
+router.post('/studList', auth, async (req, res, next) =>{
+  let params = {
+    mid: req.body.mid,
+  }
+  let sql = `CALL PROC_STUD_LIST(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r })
+})
+
+
+
+
 // 上传文件
 router.post('/upload', function (req, res) {
   const form = formidable({uploadDir: `${__dirname}/../img`});
@@ -282,6 +349,9 @@ router.post('/upload', function (req, res) {
     })
   });
 })
+
+
+
 
 
 module.exports = router

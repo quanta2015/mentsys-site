@@ -23,6 +23,7 @@ let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
 let SelectMent = Loadable({ loader: () => import('./app/selectMent')})
 let ListStud   = Loadable({ loader: () => import('./app/listStud')})
+let QueryT   = Loadable({ loader: () => import('./app/queryT')})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +38,7 @@ root.render(
             <Route path="/editT"      element={<EditT />} />
             <Route path="/selectMent" element={<SelectMent />} />
             <Route path="/listStud"   element={<ListStud />} />
+            <Route path="/queryT"   element={<QueryT />} />
           </Route>
         </Routes>
       </BrowserRouter>
