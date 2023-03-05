@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter ,HashRouter} from "react-router-dom";
 import ReactDOM from 'react-dom/client';
 import { configure } from 'mobx'
 import { ConfigProvider } from 'antd'
@@ -33,7 +33,7 @@ root.render(
   // 在入口文件index.js中,使用Provider 包裹App根组件, 并设置store
   <Provider {...injects}>
     <ConfigProvider locale={zhCN}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/login" element={<Login />}/>
           <Route element={<Layout />}>
@@ -47,7 +47,7 @@ root.render(
 {/* >>>>>>> de3ac9604ba8aa51699e2f6c7263224e61614210 */}
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   </Provider>
 );

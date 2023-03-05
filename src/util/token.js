@@ -18,6 +18,7 @@ export const removeUser = () => {
 }
 
 export const loadUser = () => {
+  //JSON字符串转JS对象
   return JSON.parse(window.localStorage.getItem(USER_KEY))
 }
 

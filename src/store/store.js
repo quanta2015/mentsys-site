@@ -59,6 +59,7 @@ class Store {
     const r = await this.post(url, params)
     if (r.code === 200) {
       message.info('登录成功！')
+      console.log(r);
       window.token = r.token
       this.setUserObj(r.data)
       return true
