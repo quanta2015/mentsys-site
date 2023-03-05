@@ -117,7 +117,6 @@ const QueryT = () => {
               placeholder="请选择查询条件"
               onChange={doChgKey}
             />
-            <Input type="text" onChange={e=>setKey(e.currentTarget.value)} />
           </div>
           {dataPage.map((item,i)=>
             <div key={i} className={classnames(s.item,{sel:sel===i}) } onClick={()=>doSelMent(i)}>
