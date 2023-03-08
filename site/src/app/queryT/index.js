@@ -139,7 +139,8 @@ const QueryT = () => {
           <section>
             {listStud.map((item,i)=>
               <div key={i} className={classnames(s.stud,{sel:sel===i}) } >
-                <img src={person} />
+                {/*<img src={person} />*/}
+                <img src={`${API_SERVER}/img/stud/${item.uid}.jpg`} />
                 <span>{item.name}</span>
               </div>
             )}

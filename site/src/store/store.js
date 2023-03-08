@@ -36,7 +36,7 @@ class Store {
     }else if (o.role===0) {
       this.user.area     = isN(o.area)?[]:o.area.split('|')
     }
-    console.log(toJS(this.user))
+    // console.log(toJS(this.user))
   }
 
   setUserVal(v,attr) {
@@ -102,6 +102,16 @@ class Store {
 
   async studListForMent(params) {
     const r = await this.post(urls.API_STUD_LIST_FOR_MENT,params)
+    if (r.code === 200) {
+      return r.data
+    }else{
+      message.error('加载数据出错!')
+    }
+  }
+
+
+  async clearMent(params) {
+    const r = await this.post(urls.API_MENT_CLEAR,params)
     if (r.code === 200) {
       return r.data
     }else{

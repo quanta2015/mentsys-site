@@ -11,6 +11,9 @@ export const API_TECH_SAVE = API_SERVER + '/techSave'
 
 export const API_MENT_LOAD = API_SERVER + '/mentLoad'
 export const API_MENT_SAVE = API_SERVER + '/mentSave'
+export const API_MENT_CLEAR = API_SERVER + '/mentClear'
+
+
 export const API_MENT_DETAIL_LOAD   = API_SERVER + '/mentDetailLoad'
 
 export const API_STUD_LIST_FOR_MENT = API_SERVER + '/studListForMent'
