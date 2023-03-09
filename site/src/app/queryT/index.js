@@ -136,7 +136,9 @@ const QueryT = () => {
 
           <br/>
 
-          <section>
+          <section className={s.studlist}>
+            {listStud.length>0 && <div className={s.sect}>指导学生</div>}
+
             {listStud.map((item,i)=>
               <div key={i} className={classnames(s.stud,{sel:sel===i}) } >
                 {/*<img src={person} />*/}

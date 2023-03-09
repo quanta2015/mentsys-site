@@ -109,7 +109,6 @@ class Store {
     }
   }
 
-
   async clearMent(params) {
     const r = await this.post(urls.API_MENT_CLEAR,params)
     if (r.code === 200) {
@@ -118,6 +117,27 @@ class Store {
       message.error('加载数据出错!')
     }
   }
+
+
+  async saveMark(params) {
+    const r = await this.post(urls.API_MARK_SAVE,params)
+    if (r.code === 200) {
+      return r.data
+    }else{
+      message.error('加载数据出错!')
+    }
+  }
+
+  async loadMark(params) {
+    const r = await this.post(urls.API_MARK_LOAD,params)
+    if (r.code === 200) {
+      return r.data
+    }else{
+      message.error('加载数据出错!')
+    }
+  }
+
+
 
 
 

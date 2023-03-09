@@ -12,9 +12,15 @@ export const API_TECH_SAVE = API_SERVER + '/techSave'
 export const API_MENT_LOAD = API_SERVER + '/mentLoad'
 export const API_MENT_SAVE = API_SERVER + '/mentSave'
 export const API_MENT_CLEAR = API_SERVER + '/mentClear'
-
-
 export const API_MENT_DETAIL_LOAD   = API_SERVER + '/mentDetailLoad'
+
+
+export const API_MARK_LOAD = API_SERVER + '/markLoad'
+export const API_MARK_SAVE = API_SERVER + '/markSave'
+
+
+
+
 
 export const API_STUD_LIST_FOR_MENT = API_SERVER + '/studListForMent'
 export const API_MENTLIST_LOAD = API_SERVER + '/mentList'
@@ -78,7 +84,34 @@ export const FIELD_OPT = [
 ]
 
 
-
+export const FORM_LIST = [{
+    name:"学期初是否与联系学生见面", 
+    list: [{m:"是",v:30},{m:"否",v:0}]
+  },{
+    name:"每学期与该生联系次数(交谈形式：面谈、网聊或集体交流)", 
+    list: [{m:"1次",v:10},{m:"2次",v:20},{m:"≥3次",v:30}]
+  },{
+    name:"为人师表，通过言传身教，引导、帮助学生树立正确的人生观、价值观和世界观，做学生的人生和学生导师", 
+    list: [{m:"优秀",v:10},{m:"良好",v:8},{m:"中等",v:6},{m:"及格",v:4},{m:"不及格",v:2}]
+  },{
+    name:"指导学生合理安排学习进程和学业规划，包括按照教学计划指导学生个性化选择学习专业方向、选课等", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  },{
+    name:"培养学生刻苦学习的精神和严谨治学的态度", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  },{
+    name:"培养学生专业创新精神、创业意识、创新创业能力 ", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  },{
+    name:"引导学生建立学习规划和增加学生对专业的兴趣，指导学生科学规划职业生涯。", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  },{
+    name:"指导学生明晰专业兴趣方向或领域，在专业方向或领域进行初步实践，指导学生参加课外科技活动及各类竞赛活动等。", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  },{
+    name:"根据不同年级学生的实际情况和教学目标，给予相应指导，帮助学生完善学习方法。", 
+    list: [{m:"优秀",v:5},{m:"良好",v:4},{m:"中等",v:3},{m:"及格",v:2},{m:"不及格",v:1}]
+  }]
 
 
 
