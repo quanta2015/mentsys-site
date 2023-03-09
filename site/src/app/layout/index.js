@@ -1,43 +1,39 @@
-import React,{useEffect} from 'react'
-import { Link,Outlet,useNavigate } from 'react-router-dom'
-import { inject, observer,MobXProviderContext } from 'mobx-react'
-import { MENU_LIST } from '@/constant/urls'
-import {isN} from '@/util/fn'
-import { toJS } from 'mobx'
+import React, { useEffect } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { inject, observer, MobXProviderContext } from "mobx-react";
+import { MENU_LIST } from "@/constant/urls";
+import { isN } from "@/util/fn";
+import { toJS } from "mobx";
 
-import s from './index.module.less';
-import logo from '@/img/logo.svg'
-
-
+import s from "./index.module.less";
+import logo from "@/img/logo.svg";
 
 const Layout = () => {
-  const navigate = useNavigate()
-  const { store } = React.useContext(MobXProviderContext)
-
+  const navigate = useNavigate();
+  const { store } = React.useContext(MobXProviderContext);
 
   useEffect(() => {
     if (!window.token) {
-      navigate('/login')
-    }else{
-      store.menuLoad()
+      // navigate("/login");
+    } else {
+      store.menuLoad();
     }
   }, []);
 
-  const selMenu =(e)=>{
-    navigate(e.v)
-  }
+  const selMenu = (e) => {
+    navigate(e.v);
+  };
 
-  const doLogout =()=>{
-    window.token = null
-    store.projr = []
-    store.projh = []
-    store.docs  = []
-    navigate('/login')
-  }
+  const doLogout = () => {
+    window.token = null;
+    store.projr = [];
+    store.projh = [];
+    store.docs = [];
+    navigate("/login");
+  };
 
+  console.log(toJS(store.menu));
 
-  console.log(toJS(store.menu))
-	 
   return (
     <>
       <div className={s.nav}>
@@ -55,18 +51,19 @@ const Layout = () => {
           </div>
 
           <div className={s.menu}>
-            {store.menu.map((item,i)=>
-              <span key={i} onClick={()=>selMenu(item)}>{item.k}</span>
-            )}
+            {store.menu.map((item, i) => (
+              <span key={i} onClick={() => selMenu(item)}>
+                {item.k}
+              </span>
+            ))}
             <span onClick={doLogout}>退出登录</span>
           </div>
         </div>
       </div>
-      
+
       <Outlet />
     </>
-  )
- 
-}
+  );
+};
 
-export default inject('store')(observer(Layout))
+export default inject("store")(observer(Layout));

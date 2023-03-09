@@ -1,0 +1,46 @@
+.main {
+  width: var(--sys-wid);
+  margin: 0 auto;
+  flex: 1;
+  background: #fff;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .wrap {
+    display: flex;
+  }
+}
+.cnt {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.card {
+  width: 48%;
+  height: 150px;
+  background: rgb(240, 240, 240);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+
+  &:hover {
+    background: rgb(230, 230, 230);
+  }
+}
+.mlt,
+.mrt {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mlt {
+  font-size: 30px;
+}
+.mrt {
+  font-size: 80px;
+}
