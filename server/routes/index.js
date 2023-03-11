@@ -317,13 +317,109 @@ router.post('/mentSave', auth, async (req, res, next) =>{
 })
 
 
-router.post('/studList', auth, async (req, res, next) =>{
-  let params = {
-    mid: req.body.mid,
-  }
+router.post('/studListForMent', auth, async (req, res, next) =>{
+  let params = req.body
+  let sql1 = `CALL PROC_STUD_LIST_FOR_MENT(?)`
+  let sql2 = `CALL PROC_GUIDE_LIST(?)`
+
+  let r = await callP(sql1, params, res)
+  let s = await callP(sql2, params, res)
+  res.status(200).json({code: 200, data: r, guide: s })
+})
+
+
+router.post('/mentList', auth, async (req, res, next) =>{
+  let params = {}
+  let sql = `CALL PROC_MENT_LIST(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r })
+})
+
+router.post('/mentClear', auth, async (req, res, next) =>{
+  let params = req.body
+  let sql = `CALL PROC_MENT_CLEAR(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r })
+})
+
+router.post('/studListLoad', auth, async (req, res, next) =>{
+  let params = {}
   let sql = `CALL PROC_STUD_LIST(?)`
   let r = await callP(sql, params, res)
   res.status(200).json({code: 200, data: r })
+})
+
+
+
+
+
+
+router.post('/markSave', auth, async (req, res, next) =>{
+  let params = req.body
+  let sql = `CALL PROC_MARK_SAVE(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r[0] })
+})
+
+
+router.post('/markLoad', auth, async (req, res, next) =>{
+  let params = req.body
+  let sql = `CALL PROC_MARK_LOAD(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r[0] })
+})
+
+
+router.post('/guideSave', auth, async (req, res, next) =>{
+  let params = req.body
+  let sql = `CALL PROC_GUIDE_SAVE(?)`
+  let r = await callP(sql, params, res)
+  res.status(200).json({code: 200, data: r })
+})
+
+
+
+
+
+
+router.get('/msg', async (req, res, next) =>{
+  const URL_TOKEN = 'https://uc.hznu.edu.cn:8080/msg/getThirdAPIToken?appId=MSG73454309&appPassword=MTJiZDE5M2U4YTI2N2NkN2U4MTQ3ZDYwMDhmOTYwYzA'
+  const URL_MSG = 'https://uc.hznu.edu.cn:8080/message/sendMessageApi'
+
+
+  let r = await axios({url:URL_TOKEN})
+  let {token} = r.data.resultData
+
+  
+  let msgtitle = '测试接口消息'
+  let msgContent = '正在测试定向发送 大家好 我是信息工程学院! 收到请回复 test ......'
+  let list = ["20050027","20210192","2019211401012"]
+  let receivers = list.map(o=> ({"type":"User", "userId":o}) )
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
+
+  const params = new URLSearchParams()
+  params.append('msgtitle', msgtitle)
+  params.append('msgContent', msgContent)
+  params.append('receivers', JSON.stringify(receivers))
+  params.append('token', token)
+  params.append('msgType', 1)
+  params.append('sendStatus', 1)
+  params.append('sendChannel', 'IntelligenceMode')
+  params.append('sendMode', 'normal')
+  params.append('isReply', 1)
+
+  let s = await axios.post(URL_MSG, params, config )
+
+  if (s.data.rspCode==='000000') {
+    res.status(200).json({code: 200, msg: '消息推送成功！' })
+  }else{
+    res.status(200).json({code: 201, msg: s.rspMsg })
+  }
 })
 
 
