@@ -82,7 +82,11 @@ class Store {
   }
 
   async loadMentList() {
-    return await this.post(urls.API_MENTLIST_LOAD)
+    return await this.post(urls.API_MENT_LIST_LOAD)
+  }
+
+  async loadStudList() {
+    return await this.post(urls.API_STUD_LIST_LOAD)
   }
 
 
@@ -103,7 +107,7 @@ class Store {
   async studListForMent(params) {
     const r = await this.post(urls.API_STUD_LIST_FOR_MENT,params)
     if (r.code === 200) {
-      return r.data
+      return r
     }else{
       message.error('加载数据出错!')
     }
@@ -130,6 +134,16 @@ class Store {
 
   async loadMark(params) {
     const r = await this.post(urls.API_MARK_LOAD,params)
+    if (r.code === 200) {
+      return r.data
+    }else{
+      message.error('加载数据出错!')
+    }
+  }
+
+
+  async saveGuide(params) {
+    const r = await this.post(urls.API_GUIDE_SAVE,params)
     if (r.code === 200) {
       return r.data
     }else{

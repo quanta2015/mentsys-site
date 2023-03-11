@@ -36,7 +36,7 @@ const Layout = () => {
   }
 
 
-  console.log(toJS(store.menu))
+  // console.log(toJS(store.menu))
 	 
   return (
     <>

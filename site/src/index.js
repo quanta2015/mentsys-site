@@ -24,7 +24,9 @@ let EditT  = Loadable({ loader: () => import('./app/editT')})
 let SelectMent = Loadable({ loader: () => import('./app/selectMent')})
 let ListStud   = Loadable({ loader: () => import('./app/listStud')})
 let QueryT   = Loadable({ loader: () => import('./app/queryT')})
+let QueryS   = Loadable({ loader: () => import('./app/queryS')})
 let EvalTech   = Loadable({ loader: () => import('./app/evalTech')})
+let OrderMent   = Loadable({ loader: () => import('./app/orderMent')})
 
 
 
@@ -38,11 +40,18 @@ root.render(
           <Route element={<Layout />}>
             <Route path="/"           element={<Index />} />
             <Route path="/editS"      element={<EditS />} />
-            <Route path="/editT"      element={<EditT />} />
-            <Route path="/selectMent" element={<SelectMent />} />
-            <Route path="/listStud"   element={<ListStud />} />
-            <Route path="/queryT"     element={<QueryT />} />
             <Route path="/evalTech"   element={<EvalTech />} />
+            <Route path="/selectMent" element={<SelectMent />} />
+
+
+            <Route path="/editT"      element={<EditT />} />
+            <Route path="/listStud"   element={<ListStud />} />
+            <Route path="/orderMent"   element={<OrderMent />} />
+
+              
+
+            <Route path="/queryT"     element={<QueryT />} />
+            <Route path="/queryS"     element={<QueryS />} />
           </Route>
         </Routes>
       </BrowserRouter>
