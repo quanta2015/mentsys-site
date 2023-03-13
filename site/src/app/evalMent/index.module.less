@@ -13,28 +13,40 @@
   }
 }
 
+.tit {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  margin: 40px 0 80px 0;
+  text-align: center;
+  .sp {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    vertical-align: middle;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 24px;
+    color: var(--clr-main);
+  }
+}
+
 .mform {
   display: flex;
   flex-direction: column;
   width: 90%;
   margin: auto;
+  label {
+    height: auto !important;
+  }
 
-  .tit {
+  .tit2 {
     position: relative;
     width: 100%;
-    font-size: 24px;
-    margin: 40px 0 80px 0;
-    text-align: center;
-    .sp {
-      position: absolute;
-      right: 0;
-      top: 40px;
-      vertical-align: middle;
-      text-align: center;
-      margin-right: 20px;
-      font-size: 24px;
-      color: var(--clr-main);
-    }
+    font-size: 20px;
+    margin: 30px 0;
+    text-align: left;
+    color: var(--clr-main);
   }
 
   .mft {
