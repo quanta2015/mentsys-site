@@ -23,11 +23,14 @@ let EditS  = Loadable({ loader: () => import('./app/editS')})
 let EditT  = Loadable({ loader: () => import('./app/editT')})
 let SelectMent = Loadable({ loader: () => import('./app/selectMent')})
 let ListStud   = Loadable({ loader: () => import('./app/listStud')})
-let QueryT   = Loadable({ loader: () => import('./app/queryT')})
-let QueryS   = Loadable({ loader: () => import('./app/queryS')})
+let QueryT     = Loadable({ loader: () => import('./app/queryT')})
+let QueryS     = Loadable({ loader: () => import('./app/queryS')})
 let EvalTech   = Loadable({ loader: () => import('./app/evalTech')})
-let OrderMent   = Loadable({ loader: () => import('./app/orderMent')})
+let OrderMent  = Loadable({ loader: () => import('./app/orderMent')})
 let ConfMent   = Loadable({ loader: () => import('./app/confMent')})
+let EvalMent   = Loadable({ loader: () => import('./app/evalMent')})
+let Config     = Loadable({ loader: () => import('./app/config')})
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -48,11 +51,12 @@ root.render(
             <Route path="/editT"      element={<EditT />} />
             <Route path="/listStud"   element={<ListStud />} />
             <Route path="/orderMent"   element={<OrderMent />} />
-
+            <Route path="/evalMent"   element={<EvalMent />} />
               
 
             <Route path="/queryT"     element={<QueryT />} />
             <Route path="/queryS"     element={<QueryS />} />
+            <Route path="/config"     element={<Config />} />
           </Route>
         </Routes>
       </BrowserRouter>
