@@ -32,7 +32,7 @@ const Layout = () => {
     navigate("/login");
   };
 
-  console.log(toJS(store.menu));
+  // console.log(toJS(store.menu))
 
   return (
     <>

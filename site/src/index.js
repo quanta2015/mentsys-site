@@ -14,6 +14,8 @@ import "@/less/com.less";
 
 configure({ enforceActions: "observed" });
 
+configure({ enforceActions: "observed" });
+
 let Login = Loadable({ loader: () => import("./app/login") });
 let Index = Loadable({ loader: () => import("./app/index") });
 let Layout = Loadable({ loader: () => import("./app/layout") });
@@ -22,10 +24,12 @@ let EditT = Loadable({ loader: () => import("./app/editT") });
 let SelectMent = Loadable({ loader: () => import("./app/selectMent") });
 let ListStud = Loadable({ loader: () => import("./app/listStud") });
 let QueryT = Loadable({ loader: () => import("./app/queryT") });
+let QueryS = Loadable({ loader: () => import("./app/queryS") });
 let EvalTech = Loadable({ loader: () => import("./app/evalTech") });
-let TestT = Loadable({ loader: () => import("./app/testT") });
-let Test = Loadable({ loader: () => import("./app/test") });
+let OrderMent = Loadable({ loader: () => import("./app/orderMent") });
+let ConfMent = Loadable({ loader: () => import("./app/confMent") });
 let EvalMent = Loadable({ loader: () => import("./app/evalMent") });
+let Config = Loadable({ loader: () => import("./app/config") });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -37,14 +41,18 @@ root.render(
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/editS" element={<EditS />} />
-            <Route path="/editT" element={<EditT />} />
-            <Route path="/selectMent" element={<SelectMent />} />
-            <Route path="/listStud" element={<ListStud />} />
-            <Route path="/queryT" element={<QueryT />} />
             <Route path="/evalTech" element={<EvalTech />} />
+            <Route path="/selectMent" element={<SelectMent />} />
+            <Route path="/confMent" element={<ConfMent />} />
+
+            <Route path="/editT" element={<EditT />} />
+            <Route path="/listStud" element={<ListStud />} />
+            <Route path="/orderMent" element={<OrderMent />} />
             <Route path="/evalMent" element={<EvalMent />} />
-            <Route path="/testT/:name/:uid" element={<TestT />} />
-            <Route path="/testT/:name/:uid/test/:id" element={<Test />} />
+
+            <Route path="/queryT" element={<QueryT />} />
+            <Route path="/queryS" element={<QueryS />} />
+            <Route path="/config" element={<Config />} />
           </Route>
         </Routes>
       </BrowserRouter>
