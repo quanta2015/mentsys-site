@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import s from "./index.module.less";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Tabs,
   Form,
@@ -13,10 +13,13 @@ import {
   Radio,
 } from "antd";
 import { EDU_STU_LIST } from "@/constant/urls";
+import { inject, observer, MobXProviderContext } from "mobx-react";
 
 const EvalMent = () => {
+  const { store } = React.useContext(MobXProviderContext);
   const [form] = Form.useForm();
   const [grade, setGrade] = React.useState("不合格");
+  const [slist, setList] = React.useState([]);
   const [gradearr, setGradearr] = React.useState(() => {
     let arr = [];
     EDU_STU_LIST.forEach((item) => {
@@ -24,15 +27,31 @@ const EvalMent = () => {
     });
     return arr;
   });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!window.token) {
+      navigate("/login");
+    } else {
+      let params = { uid: store.user.uid };
+      store.studListForMent(params).then((r) => {
+        if (r.length > 0) {
+          console.log("slist", r);
+          setList(r);
+        }
+      });
+    }
+  }, []);
 
   const getsum = (val, index0, index) => {
     setGradearr((gradearr) => {
-      gradearr[index0][index] = val;
+      let newgradearr = [...gradearr];
+      newgradearr[index0][index] = val;
       setGrade(() => {
         let newgrade = eval(gradearr.toString().split(",").join("+"));
         return newgrade > 30 ? "优秀" : newgrade > 10 ? "合格" : "不合格";
       });
-      return gradearr;
+      return newgradearr;
     });
   };
 
@@ -47,7 +66,16 @@ const EvalMent = () => {
     let obj = {};
     EDU_STU_LIST.map((item0, index0) => {
       item0.map((item, index) => {
-        obj[`${index0}_${index}`] = 0;
+        if (item.name !== "担任本科学生综合导师") obj[`${index0}_${index}`] = 0;
+        else {
+          obj[`${index0}_${index}`] = slist.length;
+          setGradearr((gradearr) => {
+            let newgradearr = [...gradearr];
+            newgradearr[index0][index] =
+              slist.length * EDU_STU_LIST[index0][index].input.v;
+            return newgradearr;
+          });
+        }
       });
     });
     console.log("obj", obj);
@@ -58,7 +86,7 @@ const EvalMent = () => {
     initialvaluesform().then((res) => {
       form.setFieldsValue(res);
     });
-  }, []);
+  }, [slist]);
 
   const items = [
     `思想育人`,
@@ -183,4 +211,4 @@ const EvalMent = () => {
   );
 };
 
-export default EvalMent;
+export default observer(EvalMent);
