@@ -27,7 +27,7 @@ let QueryT   = Loadable({ loader: () => import('./app/queryT')})
 let QueryS   = Loadable({ loader: () => import('./app/queryS')})
 let EvalTech   = Loadable({ loader: () => import('./app/evalTech')})
 let OrderMent   = Loadable({ loader: () => import('./app/orderMent')})
-
+let ConfMent   = Loadable({ loader: () => import('./app/confMent')})
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -42,7 +42,8 @@ root.render(
             <Route path="/editS"      element={<EditS />} />
             <Route path="/evalTech"   element={<EvalTech />} />
             <Route path="/selectMent" element={<SelectMent />} />
-
+            <Route path="/confMent"   element={<ConfMent />} />
+            
 
             <Route path="/editT"      element={<EditT />} />
             <Route path="/listStud"   element={<ListStud />} />
