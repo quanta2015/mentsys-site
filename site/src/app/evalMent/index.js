@@ -39,6 +39,7 @@ const EvalMent = () => {
     store.loadMarkT({ uid: store.user.uid }).then((r) => {
       if (r) {
         setMarked(true);
+        setGrade(r.mark);
         message.info("已经评分过了");
       }
     });
