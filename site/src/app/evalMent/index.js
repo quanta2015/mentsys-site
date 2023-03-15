@@ -1,25 +1,16 @@
 import React, { useEffect } from "react";
 import s from "./index.module.less";
 import { useNavigate } from "react-router-dom";
-import {
-  Tabs,
-  Form,
-  Input,
-  Checkbox,
-  DatePicker,
-  Select,
-  InputNumber,
-  Button,
-  Radio,
-} from "antd";
+import { Form, InputNumber, Button, Radio, message } from "antd";
 import { EDU_STU_LIST } from "@/constant/urls";
-import { inject, observer, MobXProviderContext } from "mobx-react";
+import { observer, MobXProviderContext } from "mobx-react";
 
 const EvalMent = () => {
   const { store } = React.useContext(MobXProviderContext);
   const [form] = Form.useForm();
   const [grade, setGrade] = React.useState("不合格");
   const [slist, setList] = React.useState([]);
+  const [marked, setMarked] = React.useState(false);
   const [gradearr, setGradearr] = React.useState(() => {
     let arr = [];
     EDU_STU_LIST.forEach((item) => {
@@ -35,12 +26,22 @@ const EvalMent = () => {
     } else {
       let params = { uid: store.user.uid };
       store.studListForMent(params).then((r) => {
-        if (r.length > 0) {
-          console.log("slist", r);
-          setList(r);
+        let data = r.data;
+        if (data.length > 0) {
+          console.log("studListForMent", data);
+          setList(data);
         }
       });
     }
+  }, []);
+
+  useEffect(() => {
+    store.loadMarkT({ uid: store.user.uid }).then((r) => {
+      if (r) {
+        setMarked(true);
+        message.info("已经评分过了");
+      }
+    });
   }, []);
 
   const getsum = (val, index0, index) => {
@@ -80,6 +81,16 @@ const EvalMent = () => {
     });
     console.log("obj", obj);
     return obj;
+  };
+
+  const saveMarkT = async () => {
+    let params = {
+      uid: store.user.uid,
+      mark: grade,
+      ret: JSON.stringify(gradearr),
+    };
+    await store.saveMarkT(params);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -195,14 +206,8 @@ const EvalMent = () => {
         })}
         <div className={s.mform}>
           <div className={s.mft}>
-            <Button
-              type="primary"
-              onClick={() => {
-                console.log(form.getFieldsValue());
-                console.log(grade, gradearr);
-              }}
-            >
-              保存
+            <Button type="primary" onClick={saveMarkT} disabled={marked}>
+              {marked ? "已评分" : "提交"}
             </Button>
           </div>
         </div>
